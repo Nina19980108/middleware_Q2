@@ -3,6 +3,14 @@ const express = require('express')
 const port = 3000
 const app = express()
 
+app.use('/', (req, res, next) => {
+  const date = new Date(Date.now())
+  const dateStr = date.toISOString().split('T')[0].toString()
+  const timeStr = date.toTimeString().split(' ')[0].toString()
+  console.log(dateStr, timeStr, '|', req.method, 'from', req.originalUrl)
+  next()
+})
+
 app.get('/', (req, res) => {
   res.send('列出全部 Todo')
 })
